@@ -1,0 +1,11 @@
+services:
+  comic-reader:
+    image: comic-reader:latest
+    container_name: comic-reader
+    restart: always
+    ports:
+      - 5555:3000
+    environment:
+      - COMIC_ROOT=/app/data
+    volumes:
+      - /Storage/manga:/app/data # Change /Storage/manga to your manga folder
