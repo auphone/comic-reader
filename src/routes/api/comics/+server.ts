@@ -55,15 +55,16 @@ async function parseComics(filenames: string[]): Promise<Comic[]> {
 }
 
 function parseFilename(filename: string) {
-	const regex = /^(.*) - (.*?)(?:, Vol\. (\d+)| \((\d+)\)| (\d+))? ([a-f0-9]{8})(?:\.epub)?$/;
+	const regex = /^(.*) - (.*?)(?:\s?\((\d+)\)|\s?(\d+))? ([a-f0-9]{8})(?:\.epub)?$/;
 	const match = filename.match(regex);
 	if (match) {
 		return {
 			author: match[1],
-			title: match[2],
-			vol: match[3] || match[4] || match[5] || null,
-			id: match[6]
+			title: match[2], // Title part, excluding volume
+			vol: match[3] || match[4] || null, // Volume part (either in parentheses or just a number)
+			id: match[5]
 		};
 	}
 	return null;
 }
+
